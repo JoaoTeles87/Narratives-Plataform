@@ -1,0 +1,207 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #003366;
+    /* Deep blue */
+    color: #fff;
+    padding-bottom: 4rem;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+.header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    /* Using one of the uploaded images or a generic one for header */
+    background: url('/casa_amarela_1.png') no-repeat center center;
+    background-size: cover;
+    padding-bottom: 4rem;
+}
+
+.headerOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 51, 102, 1) 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    z-index: 1;
+}
+
+.title {
+    font-size: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+    font-size: 2rem;
+    margin-top: 1rem;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.backButton {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+.backButton:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.introAnimationElement {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: #ffcc00;
+    z-index: 10;
+    animation: moveAndFade 2.5s ease-out forwards;
+}
+
+@keyframes moveAndFade {
+    0% {
+        transform: translateX(-50%) translateY(160px);
+        opacity: 1;
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(80px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(80px);
+        opacity: 0;
+    }
+}
+
+.contentSection {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.row.reverse {
+    flex-direction: row-reverse;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.doubleImageRow {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.doubleImageRow .imageBox {
+    flex: 1;
+}
+
+.textBox {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.textBox p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.textBox p:last-child {
+    margin-bottom: 0;
+}
+
+.caption {
+    font-size: 0.9rem !important;
+    color: #ccc;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.imageBox {
+    flex: 1;
+}
+
+.imageBox img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.imageBox img:hover {
+    transform: scale(1.02);
+}
+
+.imageCaption {
+    font-size: 0.85rem;
+    color: #ddd;
+    margin-top: 0.5rem;
+    text-align: center;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+
+    .row,
+    .row.reverse {
+        flex-direction: column;
+    }
+
+    .doubleImageRow {
+        flex-direction: column;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+}

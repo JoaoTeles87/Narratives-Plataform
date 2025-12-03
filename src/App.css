@@ -1,0 +1,5 @@
+/* Reset or empty App.css to avoid conflicting with full-width layout */
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
