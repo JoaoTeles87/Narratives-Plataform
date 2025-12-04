@@ -5,6 +5,26 @@ import IburaNarrative from './IburaNarrative';
 import CasaAmarelaNarrative from './CasaAmarelaNarrative';
 import RosaSelvagemNarrative from './RosaSelvagemNarrative';
 
+const useScrollReveal = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(`.${styles.reveal}`);
+    elements.forEach((el) => observer.observe(el));
+
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, []);
+};
+
 const Home = () => {
   const act2Ref = useRef(null);
   const mapRef = useRef(null);
@@ -12,6 +32,8 @@ const Home = () => {
   const [showIbura, setShowIbura] = useState(false);
   const [showCasaAmarela, setShowCasaAmarela] = useState(false);
   const [showRosaSelvagem, setShowRosaSelvagem] = useState(false);
+
+  useScrollReveal();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -71,8 +93,8 @@ const Home = () => {
       <div className={styles.container} style={{ display: (showIbura || showCasaAmarela || showRosaSelvagem) ? 'none' : 'block' }}>
         {/* ATO 1: INTRODUÇÃO */}
         <section className={styles.act1}>
-          <div className={styles.contentFixed}>
-            <h1>RECIFE E AS ZEIS DE MORRO</h1>
+          <div className={`${styles.contentFixed} ${styles.reveal}`}>
+            <h1>RECIFE E AS ZEIS</h1>
             <p>
               A capital pernambucana foi moldada pela alta desigualdade social e por uma política urbana que, historicamente, expulsou a população pobre das áreas centrais para atender aos interesses de uma elite proprietária.
             </p>
@@ -89,7 +111,7 @@ const Home = () => {
             {/* Background image set in CSS or inline if dynamic */}
           </div>
 
-          <div className={`${styles.floatingBox} ${showAct2Content ? styles.visible : ''}`}>
+          <div className={`${styles.floatingBox} ${showAct2Content ? styles.visible : ''} ${styles.reveal}`}>
             <h2>O Custo da Desigualdade</h2>
             <p>
               O Recife é o 5º município com maior número de moradores em áreas de risco a desastres naturais no Brasil, com <strong>206.761 habitantes</strong> (13,4% da população total do município), onde cerca de <strong>35% das famílias recifenses</strong> vivem nas áreas de morro, com padrões de ocupação irregulares e moradias bastante precárias.
@@ -99,7 +121,7 @@ const Home = () => {
 
         {/* ATO 3: CONTEXTO ZEIS */}
         <section className={styles.act3}>
-          <div className={styles.textContent}>
+          <div className={`${styles.textContent} ${styles.reveal}`}>
             <h2>O Surgimento das ZEIS</h2>
             <p>
               Em 1983, fruto dos movimentos sociais pelo acesso ao Direito à Cidade, foram criadas no Recife as primeiras <strong>Zonas Especiais de Interesse Social (ZEIS)</strong>.
