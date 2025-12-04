@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './CasaAmarelaNarrative.module.css';
 
-const CasaAmarelaNarrative = ({ onBack }) => {
+const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
@@ -148,6 +148,12 @@ const CasaAmarelaNarrative = ({ onBack }) => {
                     </div>
                 </div>
 
+            </div>
+
+            <div className={styles.footerNavigation}>
+                <button className={styles.navButton} onClick={() => onNavigate('rosa-selvagem')}>
+                    Próxima História: Rosa Selvagem →
+                </button>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './IburaNarrative.module.css';
 
-const IburaNarrative = ({ onBack }) => {
+const IburaNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
@@ -158,6 +158,12 @@ const IburaNarrative = ({ onBack }) => {
                     </div>
                 </div>
 
+            </div>
+
+            <div className={styles.footerNavigation}>
+                <button className={styles.navButton} onClick={() => onNavigate('casa-amarela')}>
+                    Próxima História: Casa Amarela →
+                </button>
             </div>
         </div>
     );

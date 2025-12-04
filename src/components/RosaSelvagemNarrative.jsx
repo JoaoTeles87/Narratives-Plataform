@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './RosaSelvagemNarrative.module.css';
 
-const RosaSelvagemNarrative = ({ onBack }) => {
+const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
@@ -91,6 +91,12 @@ const RosaSelvagemNarrative = ({ onBack }) => {
                     </div>
                 </div>
 
+            </div>
+
+            <div className={styles.footerNavigation}>
+                <button className={styles.navButton} onClick={() => onNavigate('ibura')}>
+                    Próxima História: Ibura →
+                </button>
             </div>
         </div>
     );

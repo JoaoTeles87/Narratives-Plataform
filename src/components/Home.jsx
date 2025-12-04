@@ -35,16 +35,19 @@ const Home = () => {
   }, []);
 
   const handleNavigate = (destination) => {
+    // Reset all states first
+    setShowIbura(false);
+    setShowCasaAmarela(false);
+    setShowRosaSelvagem(false);
+
     if (destination === 'ibura') {
       setShowIbura(true);
-      window.scrollTo(0, 0);
     } else if (destination === 'casa-amarela') {
       setShowCasaAmarela(true);
-      window.scrollTo(0, 0);
     } else if (destination === 'rosa-selvagem') {
       setShowRosaSelvagem(true);
-      window.scrollTo(0, 0);
     }
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
@@ -61,9 +64,9 @@ const Home = () => {
 
   return (
     <>
-      {showIbura && <IburaNarrative onBack={handleBack} />}
-      {showCasaAmarela && <CasaAmarelaNarrative onBack={handleBack} />}
-      {showRosaSelvagem && <RosaSelvagemNarrative onBack={handleBack} />}
+      {showIbura && <IburaNarrative onBack={handleBack} onNavigate={handleNavigate} />}
+      {showCasaAmarela && <CasaAmarelaNarrative onBack={handleBack} onNavigate={handleNavigate} />}
+      {showRosaSelvagem && <RosaSelvagemNarrative onBack={handleBack} onNavigate={handleNavigate} />}
 
       <div className={styles.container} style={{ display: (showIbura || showCasaAmarela || showRosaSelvagem) ? 'none' : 'block' }}>
         {/* ATO 1: INTRODUÇÃO */}
