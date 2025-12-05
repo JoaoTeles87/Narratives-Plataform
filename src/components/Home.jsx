@@ -98,10 +98,10 @@ const Home = () => {
             <p>
               A capital pernambucana foi moldada pela alta desigualdade social e por uma política urbana que, historicamente, expulsou a população pobre das áreas centrais para atender aos interesses de uma elite proprietária.
             </p>
-            <div className={styles.scrollIndicator}>
-              <span>Role para descobrir</span>
-              <div className={styles.arrow}>↓</div>
-            </div>
+          </div>
+          <div className={styles.scrollIndicator}>
+            <span>Role para descobrir</span>
+            <div className={styles.arrow}>↓</div>
           </div>
         </section>
 
