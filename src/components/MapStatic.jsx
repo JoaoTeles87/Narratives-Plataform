@@ -20,7 +20,7 @@ const MapStatic = ({ onNavigate }) => {
     return (
         <section className={styles.mapSection}>
             <div className={styles.header}>
-                <h2>Explore as ZEIS</h2>
+                <h2>Explore as 3 ZEIS</h2>zzz
                 <p>Clique nos pontos para conhecer as histórias.</p>
             </div>
 
