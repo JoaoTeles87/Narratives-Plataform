@@ -74,21 +74,19 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     // Block 2 (Risks/Arrows) is at ~50%
                     // Block 3 (Tragedy/Photo) is at ~80%
 
-                    if (progress < 0.05) {
+                    if (progress < 0.30) {
                         setStickyStage(0); // Map
-                    } else if (progress < 0.20) {
+                    } else if (progress < 0.40) {
                         setStickyStage(1); // Illustration ON, Arrows OFF
-                    } else if (progress < 0.21) {
+                    } else if (progress < 0.65) {
                         setStickyStage(1.5); // Illustration ON, Arrows ON
-                    } else if (progress < 0.75) {
-                        setStickyStage(2)
                     } else {
-                        setStickyStage(3); // Photo ON
+                        setStickyStage(2); // Photo ON
                     }
                 } else if (rect.top > 0) {
                     setStickyStage(0);
                 } else if (rect.bottom < windowHeight) {
-                    setStickyStage(3);
+                    setStickyStage(2);
                 }
             }
         };
@@ -116,10 +114,9 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
 
                 <h1 className={styles.title}>IBURA</h1>
-                <p className={styles.subtitle}>27 de Março</p>  
+                <p className={styles.subtitle}>27 de Março</p>
             </header>
 
-            {/*STANDARD CONTENT*/}
             <div className={styles.contentSection}>
                 {/* Section 1: History & Airport */}
                 <div className={styles.row}>
@@ -131,12 +128,8 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             Essa pista estava localizada desde a Av. Barão de Souza Leão, em Boa Viagem, até a atual localidade do Parque da Aeronáutica. Foi o Ibura Field que acabou dando origem ao atual Aeroporto Internacional dos Guararapes.
                         </p>
                     </div>
-                    <div className={styles.imageBox}>
-                        <img 
-                            src="/ibura (1).png" 
-                            alt="Ibura Antigo - Pista de Pouso"
-                            className={styles.reveal}
-                        />
+                    <div className={`${styles.imageBox} ${styles.reveal}`}>
+                        <img src="/ibura (1).png" alt="Ibura Antigo - Pista de Pouso" />
                     </div>
                 </div>
 
@@ -145,34 +138,26 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     <div className={`${styles.textBox} ${styles.reveal}`}>
                         <p>
                             Com uma população de mais de 50 mil habitantes e considerado o terceiro maior bairro do Recife, o Ibura surgiu ainda no século XIX e, antes de ser o que é hoje, era um engenho de cana-de-açúcar.
-                        </p> 
+                        </p>
                     </div>
-                    <div className={styles.imageBox}>
-                        <img 
-                            src="/ibura (2).png" 
-                            alt="Ibura Antigo - Engenho" 
-                            className={styles.reveal}
-                        />
+                    <div className={`${styles.imageBox} ${styles.reveal}`}>
+                        <img src="/ibura (2).png" alt="Ibura Antigo - Engenho" />
                     </div>
                 </div>
-            
-            
-                {/* IMERSIVE MAP */}
+
                 {/* Sticky Section: Map -> Illustration -> Arrows -> Photo */}
                 <div ref={stickyRef} className={styles.stickySection}>
                     <div className={styles.stickyImageContainer}>
-                        
                         {/* Layer 1: Map (Base) - Stage 0 */}
                         <img
-                            src="/ibura (5).png"
+                            src="/ibura (3).png"
                             alt="Mapa do Ibura"
                             className={`${styles.stickyImage} ${styles.active}`}
                         />
-                        
 
                         {/* Layer 2: Illustration (Overlay) - Stage 1+ */}
                         <img
-                            src="/ibura (5).png"
+                            src="/ibura (4).png"
                             alt="Ilustração de Risco"
                             className={styles.stickyImage}
                             style={{ opacity: stickyStage >= 1 ? 1 : 0 }}
@@ -188,23 +173,16 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
                         {/* Layer 3: Real Photo (Overlay) - Stage 2+ */}
                         <img
-                            src="/ibura (6).png"
+                            src="/ibura (5).png"
                             alt="Foto Jardim Monte Verde"
                             className={styles.stickyImage}
                             style={{ opacity: stickyStage >= 2 ? 1 : 0 }}
                         />
-                        <img 
-                            src="/ibura (8).png" 
-                            alt="Obras de Contenção"
-                            className={styles.stickyImage}
-                            style={{ opacity: stickyStage >= 3 ? 1 : 0 }}
-                        />
-                    
                     </div>
 
                     <div className={styles.scrollingTexts}>
                         {/* Stage 0 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '30vh' }}>
+                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '20vh' }}>
                             <h3>Divisão e Comunidades</h3>
                             <p>
                                 O bairro do Ibura é dividido em duas partes: Ibura de Cima (a oeste) e Ibura de Baixo (a leste). A divisão se dá pela diferença de relevo marcada por uma barreira muito íngreme.
@@ -215,7 +193,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </div>
 
                         {/* Stage 1/1.5 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '100vh' }}>
+                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
                             <h3>Riscos e Desafios</h3>
                             <p>
                                 O Ibura enfrenta historicamente desafios envolvendo a urbanização e especialmente deslizamentos de terra.
@@ -226,7 +204,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </div>
 
                         {/* Stage 2 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '100vh' }}>
+                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
                             <h3>A Tragédia de 2022</h3>
                             <p>
                                 A comunidade de Jardim Monte Verde foi a que mais registrou mortes: 20 vítimas fatais, sendo 17 na mesma rua.
@@ -234,16 +212,22 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             <p>
                                 Somente em 2023, um ano após a tragédia, foram anunciadas obras de contenção de encostas mais efetivas.
                             </p>
-                           
-                        </div>
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '100vh', marginBottom: '5vh' }}>
-                            <h3>Situação Atual</h3>
-                            <p>
-                                Essa comunidade tem registros de deslizamentos de terra e mortes desde 1987. A luta por moradia digna e segura continua sendo a principal pauta dos moradores.
-                            </p>
                         </div>
                     </div>
                 </div>
+
+                {/* Section 8: Current Situation */}
+                <div className={`${styles.row} ${styles.reverse}`}>
+                    <div className={`${styles.textBox} ${styles.reveal}`}>
+                        <p>
+                            Essa comunidade tem registros de deslizamentos de terra e mortes desde 1987. A luta por moradia digna e segura continua sendo a principal pauta dos moradores.
+                        </p>
+                    </div>
+                    <div className={`${styles.imageBox} ${styles.reveal}`}>
+                        <img src="/ibura (8).png" alt="Obras de Contenção" />
+                    </div>
+                </div>
+
             </div>
 
             <div className={styles.footerNavigation}>
