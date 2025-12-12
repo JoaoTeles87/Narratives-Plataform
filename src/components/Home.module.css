@@ -30,6 +30,7 @@
   max-width: 800px;
   padding: 2rem;
   z-index: 3;
+  margin-bottom: 15vh;
 }
 
 .contentFixed h1 {
@@ -193,15 +194,55 @@
   color: #aaa;
   font-style: normal;
 }
+
 /* Scroll Reveal Animations */
 .reveal {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease-out;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
 }
 
 .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
+/* Conclusion Section */
+.conclusionSection {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Override Act 3 background with new image */
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/guararapes_distrito.jpg') no-repeat center center;
+  background-size: cover;
+  padding-bottom: 4rem;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.finalBrand {
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Highlight Data Box */
+.highlightData {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #FF4500;
+  padding: 1rem;
+  margin: 2rem 0;
+  font-size: 1.1rem;
+}

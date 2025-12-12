@@ -28,6 +28,7 @@ const useScrollReveal = () => {
 const Home = () => {
   const act2Ref = useRef(null);
   const mapRef = useRef(null);
+  const conclusionRef = useRef(null);
   const [showAct2Content, setShowAct2Content] = useState(false);
   const [showIbura, setShowIbura] = useState(false);
   const [showCasaAmarela, setShowCasaAmarela] = useState(false);
@@ -91,12 +92,13 @@ const Home = () => {
       {showRosaSelvagem && <RosaSelvagemNarrative onBack={handleBack} onNavigate={handleNavigate} />}
 
       <div className={styles.container} style={{ display: (showIbura || showCasaAmarela || showRosaSelvagem) ? 'none' : 'block' }}>
-        {/* ATO 1: INTRODUÇÃO */}
+
+        {/* ATO 1: AMEAÇA (REVISADO) */}
         <section className={styles.act1}>
           <div className={`${styles.contentFixed} ${styles.reveal}`}>
-            <h1>RECIFE E AS ZEIS</h1>
+            <h1>RECIFE E AS ZEIS DE MORRO</h1>
             <p>
-              A capital pernambucana foi moldada pela alta desigualdade social e por uma política urbana que, historicamente, expulsou a população pobre das áreas centrais para atender aos interesses de uma elite proprietária.
+              O Recife não é apenas a cidade das águas, é também a cidade das encostas. Historicamente, a modernização do centro plano empurrou a população trabalhadora para o alto, transformando o morro na única alternativa de moradia e moldando uma cidade verticalizada pela exclusão.
             </p>
           </div>
           <div className={styles.scrollIndicator}>
@@ -105,33 +107,46 @@ const Home = () => {
           </div>
         </section>
 
-        {/* ATO 2: DADOS E IMPACTO */}
+        {/* ATO 2: FOCO DO RISCO (REVISADO COM DADOS) */}
         <section ref={act2Ref} className={styles.act2}>
           <div className={`${styles.imageContainer} ${showAct2Content ? styles.visible : ''}`}>
-            {/* Background image set in CSS or inline if dynamic */}
+            {/* Background image set in CSS */}
           </div>
 
           <div className={`${styles.floatingBox} ${showAct2Content ? styles.visible : ''} ${styles.reveal}`}>
-            <h2>O Custo da Desigualdade</h2>
+            <h2>A Geografia do Risco</h2>
             <p>
-              O Recife é o 5º município com maior número de moradores em áreas de risco a desastres naturais no Brasil, com <strong>206.761 habitantes</strong> (13,4% da população total do município), onde cerca de <strong>35% das famílias recifenses</strong> vivem nas áreas de morro, com padrões de ocupação irregulares e moradias bastante precárias.
+              O risco tem endereço. Cerca de <strong>67% do território do Recife é formado por morros</strong>, onde a fragilidade do solo encontra a densidade populacional.
+            </p>
+            <p>
+              Dados mostram que <strong>89% dos deslizamentos</strong> ocorrem em áreas de risco alto ou muito alto, concentrados principalmente nas zonas Norte e Noroeste da cidade. Aqui, a chuva deixa de ser clima para virar ameaça.
             </p>
           </div>
         </section>
 
-        {/* ATO 3: CONTEXTO ZEIS */}
+        {/* ATO 3: O CONCEITO E O RECORTE */}
         <section className={styles.act3}>
           <div className={`${styles.textContent} ${styles.reveal}`}>
-            <h2>O Surgimento das ZEIS</h2>
+            <h2>A Resposta Política: ZEIS</h2>
+
+            {/* 1. A Citação do Professor (Fundação Teórica) */}
             <p>
-              Em 1983, fruto dos movimentos sociais pelo acesso ao Direito à Cidade, foram criadas no Recife as primeiras <strong>Zonas Especiais de Interesse Social (ZEIS)</strong>.
+              Em 1983, o Recife foi pioneiro ao criar as Zonas Especiais de Interesse Social:
             </p>
             <blockquote>
-              “As ZEIS foram elaboradas com a finalidade de oferecer políticas públicas que melhorassem as condições de vida da população pobre, a começar pela regulação da propriedade da terra. Em seguida, naturalmente, programas que trouxessem água, esgotamento sanitário, pavimentação, arborização, o tratamento dos espaços públicos e instalação de equipamentos de caráter social, como centros sociais urbanos”
-              <footer>— Tomás Lapa, urbanista e professor da UFPE</footer>
-            </blockquote>
+              “As ZEIS foram elaboradas com a finalidade de oferecer políticas públicas que melhorassem as condições de vida da população pobre... trazendo água, saneamento, pavimentação e a regulação da terra.”
+            </blockquote><footer>— Tomás Lapa, urbanista e professor da UFPE</footer>
+
+            {/* 2. O Funil de Dados (108 vs 12) */}
+            <div className={styles.highlightData}>
+              <p>
+                Hoje, o Recife conta com <strong>108 ZEIS</strong>. Porém, o mapa abaixo recorta apenas as <strong>12 ZEIS de Morro</strong> (pontos no mapa), onde o risco geológico exige atenção máxima.
+              </p>
+            </div>
+
+            {/* 3. A Preparação para o Mapa (Suavizando a escolha das 3) */}
             <p>
-              Hoje, o Recife conta com <strong>108 ZEIS</strong>, espalhadas por toda a cidade, do centro às periferias. Desse total, <strong>12 estão em área de morro</strong>.
+              Dentre elas, destacamos <strong>três histórias</strong> (pontos coloridos) para representar a realidade de quem vive nas encostas.
             </p>
           </div>
         </section>
@@ -140,6 +155,25 @@ const Home = () => {
         <div ref={mapRef}>
           <MapStatic onNavigate={handleNavigate} />
         </div>
+
+        {/* NOVA SEÇÃO: CONCLUSÃO */}
+        <section ref={conclusionRef} className={`${styles.act3} ${styles.conclusionSection}`}>
+          <div className={`${styles.textContent} ${styles.reveal}`}>
+            <hr className={styles.divider} />
+            <h2>A Cidade Possível</h2>
+            <p>
+              Do trauma recente do <strong>Ibura</strong> à resistência histórica de <strong>Casa Amarela</strong> e à identidade comunitária de <strong>Rosa Selvagem</strong>, uma verdade emerge: o morro é vivo e pulsante.
+            </p>
+            <p>
+              A solução para o Recife não é remover a cidade do alto, mas integrar o alto à cidade com dignidade e segurança. As ZEIS são apenas o primeiro degrau dessa longa escadaria rumo a uma justiça urbana real.
+            </p>
+            <div className={styles.finalBrand}>
+              <p>PROJETO RECIFE E AS ZEIS DE MORRO • 2025</p>
+              <p style={{ marginTop: '5px', fontSize: '0.6rem' }}>Foto: Divulgação/Prefeitura do Recife</p>
+            </div>
+          </div>
+        </section>
+
       </div>
     </>
   );
