@@ -3,7 +3,7 @@
     min-height: 100vh;
     background-color: #003366;
     /* Deep blue */
-    color: #fff;
+    color: #FFFEF0;
     padding-bottom: 4rem;
     font-family: 'Arial', sans-serif;
     overflow-x: hidden;
@@ -13,14 +13,17 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    /* Push content to bottom */
+    justify-content: flex-start;
     align-items: center;
     position: relative;
-    /* Removed linear-gradient to show the "Hollywood" sign clearly */
-    background: url('/Ibura-sky.JPG') no-repeat center center;
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Dark overlay */
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 51, 102, 0.8) 100%),
+        url('/Ibura-sky.JPG') no-repeat center center;
     background-size: cover;
-    padding-bottom: 4rem;
+    background-attachment: scroll; /* Allow dynamic movement */
+    will-change: background-position; /* Optimize for background movement */
+    padding-top: 4rem;
 }
 
 /* Gradient overlay that will be controlled by scroll */
@@ -38,17 +41,25 @@
     z-index: 1;
 }
 
-/* Hide the main title visually but keep for semantics if needed, or just remove */
 .title {
-    display: none;
+    font-size: 8rem;
+    font-family: 'Tanker-Regular', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center; /* Center-align text */
+    margin-top: -1.5rem;
 }
 
 .subtitle {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    font-family: 'BespokeSerif-Regular', serif;
+    font-weight: normal;
     margin-top: 1rem;
     z-index: 2;
+    text-align: center; /* Center-align text */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    font-weight: bold;
 }
 
 .backButton {

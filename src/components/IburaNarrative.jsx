@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './IburaNarrative.module.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const useScrollReveal = () => {
     useEffect(() => {
@@ -29,6 +33,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
     const stickyRef = useRef(null);
+    const titleRef = useRef(null);
 
     useScrollReveal();
 
@@ -52,9 +57,9 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                 overlayRef.current.style.opacity = opacity;
 
                 // "Smash/Press" effect: Scale down the header
-                const scale = Math.max(1 - scrollY * 0.0005, 0.9);
-                headerRef.current.style.transform = `scale(${scale})`;
-                headerRef.current.style.transformOrigin = 'center top';
+                // const scale = Math.max(1 - scrollY * 0.0005, 0.9);
+                // headerRef.current.style.transform = `scale(${scale})`;
+                // headerRef.current.style.transformOrigin = 'center top';
             }
 
             // Sticky Section Logic
@@ -95,6 +100,32 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        // Parallax effect for the header background
+        gsap.to(headerRef.current, {
+            backgroundPositionY: '120%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
+
+        // Title movement effect
+        gsap.to(titleRef.current, {
+            y: 500, // Move the title down by 100px
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
+    }, []);
+
     return (
         <div className={styles.container}>
             {showAnimation && (
@@ -112,9 +143,11 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
             <header ref={headerRef} className={styles.header}>
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
-
-                <h1 className={styles.title}>IBURA</h1>
-                <p className={styles.subtitle}>27 de Março</p>
+                
+                <div ref={titleRef}>
+                    <p className={styles.subtitle}>ZEIS de morro</p>
+                    <h1  className={styles.title}>IBURA</h1>
+                </div>
             </header>
 
             <div className={styles.contentSection}>
