@@ -6,7 +6,7 @@
     color: #fff;
     padding-bottom: 4rem;
     font-family: 'Arial', sans-serif;
-    /*overflow-x: hidden;*/
+    overflow-x: hidden;
 }
 
 .header {
@@ -121,11 +121,8 @@
 
 .row {
     display: flex;
-    align-items: flex-start;  /* allow text height to define section size */
+    align-items: center;
     gap: 3rem;
-    margin-bottom: 8rem;
-    position: relative;
-    z-index: 2;
 }
 
 .row.reverse {
@@ -134,10 +131,6 @@
 
 .textBox {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
     background: rgba(0, 0, 0, 0.4);
     /* Darker background for readability */
     padding: 2.5rem;
@@ -159,91 +152,14 @@
 
 .imageBox {
     flex: 1;
-    position: -webkit-sticky; /* safari */
-    position: sticky;
-    top: 25vh; /* defines where the image sticks. 25 means it will
-                  stop 25% from top of the window. adjust the value*/
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
 }
 
 .imageBox img {
-    /*
-    flex: 1;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 25vh;
-    height: fit-content;
-    */
-
     width: 100%;
-    max-width: 550px; 
-    max-height: 60vh; 
-    object-fit: contain; 
-    
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
 }
-
-.stickyImageContainer {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 1; 
-}
-
-.stickyImage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    object-position: center center;
-    transition: opacity 1s ease-in-out; 
-}
-
-.scrollingTexts {
-    position: relative;
-    width: 100%;
-    z-index: 10; 
-    pointer-events: none; 
-    margin-top: -100vh; 
-    padding-bottom: 0vh;
-    padding-top: 10vh;
-}
-
-.textBlock {
-    width: 90%;
-    max-width: 800px;
-    background: rgba(0, 31, 63, 0.85);
-    padding: 3rem;
-    border-radius: 16px;
-    margin: 0 auto;
-    text-align: left;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-.textBlock h3 {
-    color: #ffcc00;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-}
-
-.textBlock p {
-    font-size: 1.35rem; /* Fonte um pouco maior */
-    line-height: 1.6;
-    color: #e0e0e0;
-}       
 
 .imageBox img:hover {
     transform: scale(1.02);
@@ -255,13 +171,6 @@
     .row,
     .row.reverse {
         flex-direction: column;
-        align-items: center;
-    }
-
-    .imageBox {
-        position: relative; 
-        top: 0;
-        width: 100%;
     }
 
     .title {
@@ -317,7 +226,7 @@
 .stickySection {
     position: relative;
     width: 100%;
-    height: 600vh;
+    height: 350vh;
     /* Increased height for better spacing */
 }
 
@@ -368,6 +277,6 @@
 
 .textBlock h3 {
     color: #ffcc00;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
 }
