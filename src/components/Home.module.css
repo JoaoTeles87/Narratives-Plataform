@@ -34,9 +34,12 @@
 }
 
 .contentFixed h1 {
-  font-size: 3.5rem;
+  font-size: 5rem;
+  /* Increased size to match the impact of Tanker */
+  font-family: 'Tanker-Regular', sans-serif;
   margin-bottom: 1.5rem;
-  font-weight: 800;
+  font-weight: normal;
+  /* Tanker usually doesn't need bold */
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
