@@ -71,6 +71,8 @@ const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
             <header ref={headerRef} className={styles.header}>
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
 
+                <div className={styles.headerCaption}>Vista aérea da ZEIS Rosa Selvagem, 2024. (Fonte: Sennor Ramos)</div>
+
                 <div className={styles.backButton} onClick={onBack} title="Voltar ao Mapa">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -95,7 +97,10 @@ const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={styles.imageBox}>
-                        <img src="/rosa-selvagem_2.png" alt="Vista da comunidade Rosa Selvagem" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/rosa-selvagem_2.png" alt="Vista da comunidade Rosa Selvagem" />
+                            <div className={styles.imageOverlayCaption}>Vista aérea da ZEIS Rosa Selvagem, 2024. (Fonte: Sennor Ramos)</div>
+                        </div>
                     </div>
                 </div>
 
@@ -107,7 +112,11 @@ const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={styles.imageBox}>
-                        <img src="/rosa_selvagem_3.png" alt="Melhorias urbanas em Rosa Selvagem" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/rosa_selvagem_3.png" alt="Melhorias urbanas em Rosa Selvagem" />
+                            <div className={styles.imageOverlayCaption}>Urbanização de encosta na Rua Pelopidas Arroxelas,
+ localizada na ZEIS Rosa Selvagem, 2024. (Fonte: URB - Recife)</div>
+                        </div>
                     </div>
                 </div>
 
@@ -119,8 +128,10 @@ const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={styles.imageBox}>
-                        <img src="/rosa_selvagem_4.png" alt="Obra de contenção na comunidade Rosa Selvagem" />
-                        <p className={styles.imageCaption}>Obra de contenção na comunidade Rosa Selvagem. (Foto: Andréa Rêgo Barros/PCR)</p>
+                        <div className={styles.imageWrapper}>
+                            <img src="/rosa_selvagem_4.png" alt="Obra de contenção na comunidade Rosa Selvagem" />
+                            <div className={styles.imageOverlayCaption}>Obra de contenção na comunidade Rosa Selvagem. (Foto: Andréa Rêgo Barros/PCR)</div>
+                        </div>
                     </div>
                 </div>
 

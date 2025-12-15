@@ -249,3 +249,17 @@
   margin: 2rem 0;
   font-size: 1.1rem;
 }
+
+/* Image caption positioned bottom-right inside imageContainer */
+.imageCaption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  color: #fff;
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  z-index: 3;
+  backdrop-filter: blur(2px);
+}

@@ -41,6 +41,22 @@
     z-index: 1;
 }
 
+/* Header caption (bottom-right) */
+.headerCaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    color: #fff;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    opacity: 0.95;
+}
+
 .title {
     font-size: 8rem;
     font-family: 'Tanker-Regular', sans-serif;
@@ -176,6 +192,25 @@
     transform: scale(1.02);
 }
 
+/* Image overlay caption styles */
+.imageWrapper {
+    position: relative;
+}
+
+.imageOverlayCaption {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    z-index: 4;
+    backdrop-filter: blur(3px);
+    pointer-events: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
 
@@ -290,4 +325,20 @@
     color: #ffcc00;
     margin-bottom: 1rem;
     font-size: 1.5rem;
+}
+
+/* Caption for sticky image (bottom-right, over the stacked sticky images) */
+.stickyImageCaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 5;
+    color: #fff;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    opacity: 0.98;
 }

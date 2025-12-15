@@ -111,6 +111,7 @@ const Home = () => {
         <section ref={act2Ref} className={styles.act2}>
           <div className={`${styles.imageContainer} ${showAct2Content ? styles.visible : ''}`}>
             {/* Background image set in CSS */}
+            <div className={styles.imageCaption}>Fonte: Google Maps</div>
           </div>
 
           <div className={`${styles.floatingBox} ${showAct2Content ? styles.visible : ''} ${styles.reveal}`}>

@@ -40,6 +40,22 @@
     z-index: 1;
 }
 
+/* Caption inside header (bottom-right) */
+.headerCaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    color: #fff;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    opacity: 0.95;
+}
+
 .title {
     font-size: 8rem;
     font-family: 'Tanker-Regular', sans-serif;

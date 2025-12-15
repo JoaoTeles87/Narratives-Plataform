@@ -143,7 +143,8 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
             <header ref={headerRef} className={styles.header}>
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
-                
+                <div className={styles.headerCaption}>Vista aérea do bairro do Ibura, 2024. (Fonte: Sennor Ramos)</div>
+
                 <div ref={titleRef}>
                     <p className={styles.subtitle}>ZEIS de morro</p>
                     <h1  className={styles.title}>IBURA</h1>
@@ -162,7 +163,10 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (1).png" alt="Ibura Antigo - Pista de Pouso" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (1).png" alt="Ibura Antigo - Pista de Pouso" />
+                            <div className={styles.imageOverlayCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
+                        </div>
                     </div>
                 </div>
 
@@ -174,7 +178,10 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (2).png" alt="Ibura Antigo - Engenho" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (2).png" alt="Ibura Antigo - Engenho" />
+                            <div className={styles.imageOverlayCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
+                        </div>
                     </div>
                 </div>
 
@@ -211,6 +218,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             className={styles.stickyImage}
                             style={{ opacity: stickyStage >= 2 ? 1 : 0 }}
                         />
+                        <div className={styles.stickyImageCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
                     </div>
 
                     <div className={styles.scrollingTexts}>
@@ -257,7 +265,9 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (8).png" alt="Obras de Contenção" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (8).png" alt="Obras de Contenção" />
+                        </div>
                     </div>
                 </div>
 
