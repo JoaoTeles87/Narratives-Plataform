@@ -306,6 +306,52 @@
     .title {
         font-size: 3rem;
     }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+
+    .contentSection {
+        padding: 2rem 1rem;
+        gap: 3rem;
+    }
+
+    .textBox {
+        padding: 1.5rem;
+    }
+
+    .textBox p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .imageSliderWrapper {
+        height: 300px;
+    }
+
+    .sliderLabels {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    .navButton {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .backButton {
+        top: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .headerCaption {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
 }
 /* Footer Navigation */
 .footerNavigation {
