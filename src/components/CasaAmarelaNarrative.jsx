@@ -7,9 +7,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
+    const [sliderPosition, setSliderPosition] = useState(100);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
     const titleRef = useRef(null);
+    const sliderRef = useRef(null);
+    const sliderContainerRef = useRef(null);
+    const isDragging = useRef(false);
+    const isAutoScrolling = useRef(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -59,6 +64,34 @@ const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
             },
         });
     }, []);
+
+    // Auto-scroll effect for the slider
+    useEffect(() => {
+        if (!sliderContainerRef.current) return;
+
+        const scrollTriggerInstance = ScrollTrigger.create({
+            trigger: sliderContainerRef.current,
+            start: 'center center',
+            end: () => `+=${window.innerWidth}`, // Scroll distance for full slider animation
+            pin: true,
+            pinSpacing: true, // Add spacing to prevent content overlap
+            scrub: 0.5,
+            anticipatePin: 1,
+            onUpdate: (self) => {
+                if (!isDragging.current) {
+                    // Map scroll progress (0 to 1) to slider position (100 to 0) - reversed
+                    const newPosition = 100 - (self.progress * 100);
+                    setSliderPosition(newPosition);
+                }
+            },
+        });
+
+        return () => {
+            scrollTriggerInstance.kill();
+        };
+    }, []);
+
+
 
     return (
         <div className={styles.container}>
@@ -140,15 +173,48 @@ const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
                 </div>
 
                 {/* Section 4: Market */}
-                <div className={`${styles.row} ${styles.reverse}`}>
+                <div className={styles.column}>
                     <div className={styles.textBox}>
                         <p>
                             E também o Mercado de Casa Amarela, considerado um dos mais antigos da cidade, inaugurado em 1930.
                         </p>
+                        <p className={styles.caption}>
+                            Mercado de Casa Amarela
+                        </p>
                     </div>
-                    <div className={styles.imageBox}>
-                        <img src="/casa_amarela_7.jpg" alt="Mercado de Casa Amarela" />
-                        <p className={styles.imageCaption}>Recortes de jornais. Acervo da Fundação Joaquim Nabuco.</p>
+
+                    <div 
+                        ref={sliderContainerRef}
+                        className={styles.imageSliderContainer}
+                    >
+                        <div ref={sliderRef}>
+                        <div className={styles.imageSliderWrapper}>
+                            <img 
+                                src="/casa_amarela_6.png" 
+                                alt="Mercado de Casa Amarela - Atualidade" 
+                                className={styles.sliderImageAfter}
+                            />
+                            <div 
+                                className={styles.sliderImageBefore}
+                                style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                            >
+                                <img 
+                                    src="/casa_amarela_7.jpg" 
+                                    alt="Mercado de Casa Amarela - Arquivo histórico"
+                                />
+                            </div>
+                            <div 
+                                className={styles.sliderHandle}
+                                style={{ left: `${sliderPosition}%` }}
+                            >
+                                <div className={styles.sliderLine}></div>
+                            </div>
+                        </div>
+                        <div className={styles.sliderLabels}>
+                            <span className={styles.labelBefore}>Antes - 1930</span>
+                            <span className={styles.labelAfter}>Depois - 2025</span>
+                        </div>
+                        </div>
                     </div>
                 </div>
 
