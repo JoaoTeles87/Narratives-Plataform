@@ -51,6 +51,7 @@ const MapStatic = ({ onNavigate }) => {
                     alt="Mapa Satélite de Recife com relevo"
                     className={styles.mapImage}
                 />
+                <div className={styles.imageCaption}>Fonte: Satélite ISS</div>
 
                 {/* Renderização dos 9 pontos "Fantasmas" (Outras ZEIS de Morro) */}
                 {backgroundZeis.map((pos, index) => (

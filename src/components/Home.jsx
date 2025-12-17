@@ -95,6 +95,9 @@ const Home = () => {
 
         {/* ATO 1: AMEAÇA (REVISADO) */}
         <section className={styles.act1}>
+          <div className={styles.imageCaption} style={{ right: '1rem', bottom: '1rem', zIndex: 10 }}>
+            Foto: chartonsalvador / Galeria Galaxy (Vista aérea do Recife durante o voo Recife-Natal)
+          </div>
           <div className={`${styles.contentFixed} ${styles.reveal}`}>
             <h1>RECIFE E AS ZEIS DE MORRO</h1>
             <p>
@@ -111,7 +114,7 @@ const Home = () => {
         <section ref={act2Ref} className={styles.act2}>
           <div className={`${styles.imageContainer} ${showAct2Content ? styles.visible : ''}`}>
             {/* Background image set in CSS */}
-            <div className={styles.imageCaption}>Fonte: Google Maps</div>
+            <div className={styles.imageCaption}>Fonte: Google Earth</div>
           </div>
 
           <div className={`${styles.floatingBox} ${showAct2Content ? styles.visible : ''} ${styles.reveal}`}>
@@ -127,6 +130,9 @@ const Home = () => {
 
         {/* ATO 3: O CONCEITO E O RECORTE */}
         <section className={styles.act3}>
+          <div className={styles.imageCaption} style={{ right: '1rem', bottom: '1rem', zIndex: 10 }}>
+            Foto: chartonsalvador / Galeria Galaxy (Vista aérea do Recife durante o voo Recife-Natal)
+          </div>
           <div className={`${styles.textContent} ${styles.reveal}`}>
             <h2>A Resposta Política: ZEIS</h2>
 
