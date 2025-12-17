@@ -221,41 +221,6 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         />
                         <div className={styles.stickyImageCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
                     </div>
-
-                    <div className={styles.scrollingTexts}>
-                        {/* Stage 0 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '20vh' }}>
-                            <h3>Divisão e Comunidades</h3>
-                            <p>
-                                O bairro do Ibura é dividido em duas partes: Ibura de Cima (a oeste) e Ibura de Baixo (a leste). A divisão se dá pela diferença de relevo marcada por uma barreira muito íngreme.
-                            </p>
-                            <p>
-                                Somando um total de 21 comunidades, as UR’s (Unidades Residenciais) representam a maior parte do bairro, localizadas no Ibura de Cima.
-                            </p>
-                        </div>
-
-                        {/* Stage 1/1.5 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
-                            <h3>Riscos e Desafios</h3>
-                            <p>
-                                O Ibura enfrenta historicamente desafios envolvendo a urbanização e especialmente deslizamentos de terra.
-                            </p>
-                            <p>
-                                Entre maio e junho de 2022, o Recife teve o maior volume de chuvas do ano, resultando na maior tragédia do século no estado.
-                            </p>
-                        </div>
-
-                        {/* Stage 2 Text */}
-                        <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
-                            <h3>A Tragédia de 2022</h3>
-                            <p>
-                                A comunidade de Jardim Monte Verde foi a que mais registrou mortes: 20 vítimas fatais, sendo 17 na mesma rua.
-                            </p>
-                            <p>
-                                Somente em 2023, um ano após a tragédia, foram anunciadas obras de contenção de encostas mais efetivas.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 {/* ===== CROSSFADE: DESENHO PARA REALIDADE (FORA da stickySection) ===== */}
