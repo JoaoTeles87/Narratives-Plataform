@@ -17,3 +17,40 @@ html {
   width: 100%;
   min-height: 100vh;
 }
+
+
+
+@font-face {
+    font-family: 'BespokeSerif-Regular';
+    src: url('./assets/fonts/BespokeSerif-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BespokeSerif-Bold';
+    src: url('./assets/fonts/BespokeSerif-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BespokeSerif-Italic';
+    src: url('./assets/fonts/BespokeSerif-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BespokeSerif-BoldItalic';
+    src: url('./assets/fonts/BespokeSerif-BoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Tanker-Regular';
+    src: url('./assets/fonts/Tanker-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

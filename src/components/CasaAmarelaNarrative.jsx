@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './CasaAmarelaNarrative.module.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -29,6 +34,32 @@ const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        // Parallax effect for the header background
+        gsap.to(headerRef.current, {
+            backgroundPositionY: '120%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
+
+        // Title movement effect
+        gsap.to(titleRef.current, {
+            y: 500, // Move the title down by 100px
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
+    }, []);
+
     return (
         <div className={styles.container}>
             {showAnimation && (
@@ -40,14 +71,18 @@ const CasaAmarelaNarrative = ({ onBack, onNavigate }) => {
             <header ref={headerRef} className={styles.header}>
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
 
+                <div className={styles.headerCaption}>Vista aérea do bairro de Casa Amarela, 2024. (Fonte: Sennor Ramos)</div>
+
                 <div className={styles.backButton} onClick={onBack} title="Voltar ao Mapa">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
                 </div>
-                <h1 className={styles.title}>CASA AMARELA</h1>
-                <p className={styles.subtitle}>Zeis de morro</p>
+                <div ref={titleRef}>
+                    <p className={styles.subtitle}>ZEIS de morro</p>
+                    <h1 className={styles.title}>CASA AMARELA</h1>
+                </div>
             </header>
 
             <div className={styles.contentSection}>

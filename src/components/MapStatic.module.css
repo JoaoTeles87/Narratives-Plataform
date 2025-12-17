@@ -106,3 +106,21 @@
         box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
     }
 }
+
+/* Background / Ghost Marker Styles */
+.backgroundMarker {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #e0e0e0;
+    /* Lighter gray/white for visibility */
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    /* Border for contrast */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    /* Increased opacity */
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    z-index: 5;
+}

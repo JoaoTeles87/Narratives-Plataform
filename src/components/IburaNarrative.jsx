@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import ImageCrossfade from './ImageCrossfade';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './IburaNarrative.module.css';
 
-// Hook otimizado para scroll reveal
+gsap.registerPlugin(ScrollTrigger);
+
 const useScrollReveal = () => {
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -33,6 +36,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
     // ✅ SOLUÇÃO 1: useRef em vez de useState (evita re-renders)
     const stickyStageRef = useRef(0);
     const tickingRef = useRef(false);
+    const titleRef = useRef(null);
 
     useScrollReveal();
 
@@ -62,14 +66,19 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
     const handleScrollLogic = useCallback(() => {
         const scrollY = window.scrollY;
 
-        // Header Effects
-        if (headerRef.current && overlayRef.current) {
-            const headerHeight = headerRef.current.offsetHeight;
-            const opacity = Math.min(scrollY / (headerHeight * 0.8), 1);
-            overlayRef.current.style.opacity = opacity;
-            const scale = Math.max(1 - scrollY * 0.0005, 0.9);
-            headerRef.current.style.transform = `scale(${scale})`;
-        }
+            // Header Effects
+            if (headerRef.current && overlayRef.current) {
+                const headerHeight = headerRef.current.offsetHeight;
+
+                // Opacity for overlay
+                const opacity = Math.min(scrollY / (headerHeight * 0.8), 1);
+                overlayRef.current.style.opacity = opacity;
+
+                // "Smash/Press" effect: Scale down the header
+                // const scale = Math.max(1 - scrollY * 0.0005, 0.9);
+                // headerRef.current.style.transform = `scale(${scale})`;
+                // headerRef.current.style.transformOrigin = 'center top';
+            }
 
         // Sticky Section Logic (SEM setState!)
         if (stickyRef.current) {
@@ -122,16 +131,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
         updateStickyImages(0);
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScrollLogic, updateStickyImages]);
 
-    // Animação inicial (pode manter como estado pois só roda 1x)
-    const showAnimationRef = useRef(true);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            const element = document.querySelector(`.${styles.introAnimationElement}`);
-            if (element) element.style.display = 'none';
-        }, 3000);
-        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -151,8 +151,12 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
             <header ref={headerRef} className={styles.header}>
                 <div ref={overlayRef} className={styles.headerOverlay}></div>
-                <h1 className={styles.title}>IBURA</h1>
-                <p className={styles.subtitle}>27 de Março</p>
+                <div className={styles.headerCaption}>Vista aérea do bairro do Ibura, 2024. (Fonte: Sennor Ramos)</div>
+
+                <div ref={titleRef}>
+                    <p className={styles.subtitle}>ZEIS de morro</p>
+                    <h1  className={styles.title}>IBURA</h1>
+                </div>
             </header>
 
             <div className={styles.contentSection}>
@@ -167,7 +171,10 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (1).png" alt="Ibura Antigo - Pista de Pouso" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (1).png" alt="Ibura Antigo - Pista de Pouso" />
+                            <div className={styles.imageOverlayCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
+                        </div>
                     </div>
                 </div>
 
@@ -179,7 +186,10 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </p>
                     </div>
                     <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (2).png" alt="Ibura Antigo - Engenho" />
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (2).png" alt="Ibura Antigo - Engenho" />
+                            <div className={styles.imageOverlayCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
+                        </div>
                     </div>
                 </div>
 
@@ -210,6 +220,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             className={styles.stickyImage}
                             style={{ opacity: 0 }}
                         />
+                        <div className={styles.stickyImageCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
                     </div>
 
                     <div className={styles.scrollingTexts}>
@@ -261,6 +272,11 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         <p>
                             Essa comunidade tem registros de deslizamentos de terra e mortes desde 1987. A luta por moradia digna e segura continua sendo a principal pauta dos moradores.
                         </p>
+                    </div>
+                    <div className={`${styles.imageBox} ${styles.reveal}`}>
+                        <div className={styles.imageWrapper}>
+                            <img src="/ibura (8).png" alt="Obras de Contenção" />
+                        </div>
                     </div>
                 </div>
             </div>
