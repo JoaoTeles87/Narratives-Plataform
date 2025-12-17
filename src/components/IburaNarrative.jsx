@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import ImageCrossfade from './ImageCrossfade';
 import styles from './IburaNarrative.module.css';
 
 const useScrollReveal = () => {
@@ -223,11 +224,16 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             Essa comunidade tem registros de deslizamentos de terra e mortes desde 1987. A luta por moradia digna e segura continua sendo a principal pauta dos moradores.
                         </p>
                     </div>
-                    <div className={`${styles.imageBox} ${styles.reveal}`}>
-                        <img src="/ibura (8).png" alt="Obras de Contenção" />
-                    </div>
+                    {/* ===== CROSSFADE: DESENHO PARA REALIDADE ===== */}
+                    <ImageCrossfade className={`${styles.imageBox} ${styles.reveal}`}
+                        drawingImage="/ibura (6).png"
+                        photoImage="/ibura (8).png"
+                        altDrawing="Ilustração do deslizamento de terra no Ibura"
+                        altPhoto="Foto real do deslizamento de terra no Ibura"
+                        labelStart="Desenho"
+                        labelEnd="Realidade"
+                    />
                 </div>
-
             </div>
 
             <div className={styles.footerNavigation}>
