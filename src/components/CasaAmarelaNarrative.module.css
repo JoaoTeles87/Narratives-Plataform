@@ -216,6 +216,82 @@
     font-style: italic;
 }
 
+/* Image Slider Styles */
+.imageSliderContainer {
+    width: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.imageSliderWrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    cursor: default;
+}
+
+.sliderImageAfter {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sliderImageBefore {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sliderImageBefore img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sliderHandle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.sliderLine {
+    width: 100%;
+    height: 100%;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sliderLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #ddd;
+    font-style: italic;
+}
+
+.labelBefore {
+    text-align: left;
+}
+
+.labelAfter {
+    text-align: right;
+}
+
 @media (max-width: 768px) {
 
     .row,
@@ -229,6 +305,52 @@
 
     .title {
         font-size: 3rem;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+
+    .contentSection {
+        padding: 2rem 1rem;
+        gap: 3rem;
+    }
+
+    .textBox {
+        padding: 1.5rem;
+    }
+
+    .textBox p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .imageSliderWrapper {
+        height: 300px;
+    }
+
+    .sliderLabels {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    .navButton {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .backButton {
+        top: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .headerCaption {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        right: 0.5rem;
+        bottom: 0.5rem;
     }
 }
 /* Footer Navigation */
