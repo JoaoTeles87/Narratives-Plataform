@@ -68,3 +68,41 @@
         width: 100%;
     }
 }
+
+.balloon {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    transform: none;
+    background: rgba(139, 90, 43, 0.75);
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 50%;
+    text-align: justify;
+    z-index: 10;
+    opacity: 1;
+
+}
+
+.balloon p {
+    margin: 0;
+    font-family: 'Bespoke Serif', serif;
+    font-size: 1.05rem;
+    color: #fff;
+    line-height: 1.5;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .balloon {
+        padding: 15x 20px;
+        max-width: 90%;
+        top: 10%;
+        left: 5%;
+    }
+
+    .balloon p {
+        font-size: 1rem;
+    }
+}
