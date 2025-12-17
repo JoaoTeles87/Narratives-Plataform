@@ -6,46 +6,48 @@ import styles from './ImageCrossfade.module.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const ImageCrossfade = ({
-    drawingImage,
-    photoImage,
-    altDrawing = "Ilustração",
-    altPhoto = "Foto real",
-    labelStart = "Desenho",
-    labelEnd = "Realidade",
+    image1,
+    image2,
+    image3,
+    alt1 = "Imagem 1",
+    alt2 = "Imagem 2",
+    alt3 = "Imagem 3",
 }) => {
     const sectionRef = useRef(null);
     const containerRef = useRef(null);
-    const photoRef = useRef(null);
-    const progressRef = useRef(null);
+    const image2Ref = useRef(null);
+    const image3Ref = useRef(null);
 
     useEffect(() => {
         const section = sectionRef.current;
         const container = containerRef.current;
-        const photo = photoRef.current;
-        const progress = progressRef.current;
+        const img2 = image2Ref.current;
+        const img3 = image3Ref.current;
 
-        if (!section || !container || !photo) return;
+        if (!section || !container || !img2 || !img3) return;
 
         // Cria a animação com ScrollTrigger + Pin
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
-                start: 'top top',           // Começa quando o topo da seção atinge o topo da viewport
-                end: '+=100%',              // Duração do pin: 100% da altura da viewport
-                pin: true,                  // TRAVA A TELA
-                pinSpacing: true,           // Adiciona espaço para compensar o pin
-                scrub: 1,                   // Suavidade
-                markers: false,             // Mude para true para debugar
-                onUpdate: (self) => {
-                    if (progress) {
-                        progress.style.width = `${self.progress * 100}%`;
-                    }
-                }
+                start: 'top top',
+                end: '+=1200%',              // Duração maior para 2 transições
+                pin: true,
+                pinSpacing: true,
+                scrub: 1,
+                markers: false,
             }
         });
 
-        // Animação: opacidade de 0 para 1
-        tl.to(photo, {
+        // Primeira transição: imagem 1 → imagem 2 (0% a 50% do scroll)
+        tl.to(img2, {
+            opacity: 1,
+            duration: 1,
+            ease: 'none'
+        });
+
+        // Segunda transição: imagem 2 → imagem 3 (50% a 100% do scroll)
+        tl.to(img3, {
             opacity: 1,
             duration: 1,
             ease: 'none'
@@ -61,32 +63,28 @@ const ImageCrossfade = ({
     return (
         <section ref={sectionRef} className={styles.crossfadeSection}>
             <div className={styles.container} ref={containerRef}>
-                {/* Imagem do Desenho (base) */}
+                {/* Imagem 1 (base) */}
                 <img
-                    src={drawingImage}
-                    alt={altDrawing}
-                    className={`${styles.image} ${styles.drawing}`}
+                    src={image1}
+                    alt={alt1}
+                    className={`${styles.image} ${styles.image1}`}
                 />
 
-                {/* Imagem Real (sobreposta) */}
+                {/* Imagem 2 (sobreposta, começa invisível) */}
                 <img
-                    ref={photoRef}
-                    src={photoImage}
-                    alt={altPhoto}
-                    className={`${styles.image} ${styles.photo}`}
+                    ref={image2Ref}
+                    src={image2}
+                    alt={alt2}
+                    className={`${styles.image} ${styles.image2}`}
                 />
 
-                {/* Indicador de Progresso */}
-                <div className={styles.indicator}>
-                    <span className={styles.label}>{labelStart}</span>
-                    <div className={styles.progressBar}>
-                        <div
-                            ref={progressRef}
-                            className={styles.progressFill}
-                        />
-                    </div>
-                    <span className={styles.label}>{labelEnd}</span>
-                </div>
+                {/* Imagem 3 (sobreposta, começa invisível) */}
+                <img
+                    ref={image3Ref}
+                    src={image3}
+                    alt={alt3}
+                    className={`${styles.image} ${styles.image3}`}
+                />
             </div>
         </section>
     );

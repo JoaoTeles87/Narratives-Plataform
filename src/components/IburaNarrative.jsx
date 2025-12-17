@@ -260,10 +260,11 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
                 {/* ===== CROSSFADE: DESENHO PARA REALIDADE (FORA da stickySection) ===== */}
                 <ImageCrossfade
-                    drawingImage="/ibura (6).png"
-                    photoImage="/ibura (8).png"
-                    altDrawing="Ilustração do deslizamento de terra no Ibura"
-                    altPhoto="Foto real do deslizamento de terra no Ibura"
+                    image1="/ibura (9).png"
+                    image2="/ibura (10).png"
+                    image3="/ibura (11).png"
+                    alt1="Ilustração do deslizamento de terra no Ibura"
+                    alt2="Foto real do deslizamento de terra no Ibura"
                     labelStart="Desenho"
                     labelEnd="Realidade"
                 />
