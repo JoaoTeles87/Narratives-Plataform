@@ -5,13 +5,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: #003366;
+    /* Opaque background to hide underlying pinned content */
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
     overflow: hidden;
+    z-index: 10;
+    /* Ensure it lays ON TOP of the previous sticky section */
 }
 
 /* ===== CONTAINER DAS IMAGENS ===== */

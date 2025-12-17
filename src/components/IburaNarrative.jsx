@@ -30,13 +30,54 @@ const useScrollReveal = () => {
 
 const IburaNarrative = ({ onBack, onNavigate }) => {
     const [showAnimation, setShowAnimation] = useState(true);
-    const [stickyStage, setStickyStage] = useState(0);
+    // const [stickyStage, setStickyStage] = useState(0); // Unused now
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
     const stickyRef = useRef(null);
     const titleRef = useRef(null);
+    const scrollTextsRef = useRef(null);
 
     useScrollReveal();
+
+    // Efeito da Escadaria
+    useEffect(() => {
+        if (!stickyRef.current) return;
+
+        const textsContainer = stickyRef.current.querySelector(`.${styles.scrollingTexts}`);
+        if (!textsContainer) return;
+
+        const blocks = textsContainer.querySelectorAll(`.${styles.textBlock}`);
+        if (!blocks.length) return;
+
+        // Reset any previous styles
+        // Hide all initially with opacity 0 and pushed down
+        gsap.set(blocks, { opacity: 0, y: 50, zIndex: 1 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: stickyRef.current,
+                start: "top top",      // Lock when top hits top
+                end: "+=2500",         // Duration of pin
+                pin: true,
+                scrub: true,           // Link smooth scroll
+                anticipatePin: 1,
+                refreshPriority: 1     // Calculate this FIRST since it pushes following content
+            },
+        });
+
+        blocks.forEach((block, index) => {
+            // Sequence: Enter -> Hold -> Exit
+            tl.to(block, { opacity: 1, y: 0, zIndex: 10, duration: 1, ease: "power2.out" }) // Fade In
+                .to(block, { duration: 3 }) // Hold
+                .to(block, { opacity: 0, y: -50, zIndex: 1, duration: 1, ease: "power2.in" }) // Fade Out
+                .set(block, { zIndex: 0 }); // Explicitly reset z-index after exit
+        });
+
+        return () => {
+            tl.scrollTrigger?.kill();
+            tl.kill();
+        };
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -63,38 +104,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                 // headerRef.current.style.transformOrigin = 'center top';
             }
 
-            // Sticky Section Logic
-            if (stickyRef.current) {
-                const rect = stickyRef.current.getBoundingClientRect();
-                const sectionHeight = rect.height;
-                const windowHeight = window.innerHeight;
-
-                if (rect.top <= 0 && rect.bottom >= windowHeight) {
-                    const scrolled = Math.abs(rect.top);
-                    const totalScrollable = sectionHeight - windowHeight;
-                    const progress = scrolled / totalScrollable;
-
-                    // Define stages based on scroll progress
-                    // Adjusted thresholds to align with text blocks:
-                    // Block 1 (Map) is at ~15-20%
-                    // Block 2 (Risks/Arrows) is at ~50%
-                    // Block 3 (Tragedy/Photo) is at ~80%
-
-                    if (progress < 0.30) {
-                        setStickyStage(0); // Map
-                    } else if (progress < 0.40) {
-                        setStickyStage(1); // Illustration ON, Arrows OFF
-                    } else if (progress < 0.65) {
-                        setStickyStage(1.5); // Illustration ON, Arrows ON
-                    } else {
-                        setStickyStage(2); // Photo ON
-                    }
-                } else if (rect.top > 0) {
-                    setStickyStage(0);
-                } else if (rect.bottom < windowHeight) {
-                    setStickyStage(2);
-                }
-            }
+            // Sticky Section Logic - Removed as per single background request
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -186,54 +196,62 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     </div>
                 </div>
 
-                {/* Sticky Section: Map -> Illustration -> Arrows -> Photo */}
+            </div>
+
+            {/* Sticky Section Wrapper to isolate pinning context */}
+            <div style={{ position: 'relative', zIndex: 5 }}>
                 <div ref={stickyRef} className={styles.stickySection}>
                     <div className={styles.stickyImageContainer}>
-                        {/* Layer 1: Map (Base) - Stage 0 */}
+                        {/* Single Background: Real Photo (Staircase) */}
                         <img
-                            src="/ibura (3).png"
-                            alt="Mapa do Ibura"
-                            className={`${styles.stickyImage} ${styles.active}`}
-                        />
-
-                        {/* Layer 2: Illustration (Overlay) - Stage 1+ */}
-                        <img
-                            src="/ibura (4).png"
-                            alt="Ilustração de Risco"
+                            src="/FOTO 46 Rua Edmar Amorim Fernandes - UR10 - Ibura2014 FOTO AURELINA MOUA.jpg"
+                            alt="Foto escadaria do Ibura"
                             className={styles.stickyImage}
-                            style={{ opacity: stickyStage >= 1 ? 1 : 0 }}
+                            style={{ opacity: 1 }} // Always visible as background
                         />
+                        <div className={styles.stickyImageCaption}>46 Rua Edmar Amorim Fernandes - UR10 - Ibura 2014, AURELINA MOUA.</div>
+                    </div>
 
-                        {/* Layer 2.5: Arrows (Overlay) - Stage 1.5 only */}
-                        <img
-                            src="/ibura (6).png"
-                            alt="Setas de Deslizamento"
-                            className={styles.stickyImage}
-                            style={{ opacity: (stickyStage >= 1.5 && stickyStage < 2) ? 1 : 0 }}
-                        />
-
-                        {/* Layer 3: Real Photo (Overlay) - Stage 2+ */}
-                        <img
-                            src="/ibura (5).png"
-                            alt="Foto Jardim Monte Verde"
-                            className={styles.stickyImage}
-                            style={{ opacity: stickyStage >= 2 ? 1 : 0 }}
-                        />
-                        <div className={styles.stickyImageCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
+                    <div ref={scrollTextsRef} className={styles.scrollingTexts}>
+                        <div className={styles.textBlock}>
+                            <h3>Topografia e Ocupação</h3>
+                            <p>O relevo acidentado do Ibura apresenta desafios significativos para a ocupação urbana, com muitas construções em áreas de encosta.</p>
+                        </div>
+                        <div className={styles.textBlock}>
+                            <h3>Áreas de Risco</h3>
+                            <p>A densidade das construções em áreas de alta declividade aumenta a vulnerabilidade geológica.</p>
+                        </div>
+                        <div className={styles.textBlock}>
+                            <h3>Dinâmica do Solo</h3>
+                            <p>Em períodos de chuva intensa, o solo encharcado torna-se instável, suscetível a movimentos de massa.</p>
+                        </div>
+                        <div className={styles.textBlock}>
+                            <h3>A Realidade</h3>
+                            <p>O Jardim Monte Verde exemplifica os riscos reais enfrentados pela população, onde o deslizamento deixou marcas profundas na comunidade.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                {/* ===== CROSSFADE: DESENHO PARA REALIDADE (FORA da stickySection) ===== */}
-                <ImageCrossfade
-                    image1="/ibura (9).png"
-                    image2="/ibura (10).png"
-                    image3="/ibura (11).png"
-                    alt1="Ilustração do deslizamento de terra no Ibura"
-                    alt2="Foto real do deslizamento de terra no Ibura"
-                    labelStart="Desenho"
-                    labelEnd="Realidade"
-                />
+            {/* Visual Break - Minimal Spacer to force paint layer separation */}
+            <div style={{ height: '1px', width: '100%', backgroundColor: '#003366' }}></div>
 
+
+            {/* ===== SPACER PARA PREVENIR SOBREPOSIÇÃO (Também comentado) ===== */}
+            {/* <div style={{ height: '50vh', width: '100%', position: 'relative', zIndex: 1 }}></div> */}
+
+            {/* ===== CROSSFADE: Agora vem logo após a introdução histórica ===== */}
+            <ImageCrossfade
+                image1="/ibura (9).png"
+                image2="/ibura (10).png"
+                image3="/ibura (11).png"
+                alt1="Ilustração do deslizamento de terra no Ibura"
+                alt2="Foto real do deslizamento de terra no Ibura"
+                labelStart="Desenho"
+                labelEnd="Realidade"
+            />
+
+            <div className={styles.contentSection}>
                 {/* Section 8: Current Situation */}
                 <div className={`${styles.row} ${styles.reverse}`}>
                     <div className={`${styles.textBox} ${styles.reveal}`}>
@@ -247,7 +265,6 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div className={styles.footerNavigation}>

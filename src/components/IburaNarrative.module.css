@@ -7,6 +7,8 @@
     padding-bottom: 4rem;
     font-family: 'Arial', sans-serif;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .header {
@@ -16,13 +18,16 @@
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    background: 
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Dark overlay */
+    background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        /* Dark overlay */
         linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 51, 102, 0.8) 100%),
         url('/Ibura-sky.JPG') no-repeat center center;
     background-size: cover;
-    background-attachment: scroll; /* Allow dynamic movement */
-    will-change: background-position; /* Optimize for background movement */
+    background-attachment: scroll;
+    /* Allow dynamic movement */
+    will-change: background-position;
+    /* Optimize for background movement */
     padding-top: 4rem;
 }
 
@@ -64,7 +69,8 @@
     text-transform: uppercase;
     z-index: 2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    text-align: center; /* Center-align text */
+    text-align: center;
+    /* Center-align text */
     margin-top: -1.5rem;
 }
 
@@ -74,7 +80,8 @@
     font-weight: normal;
     margin-top: 1rem;
     z-index: 2;
-    text-align: center; /* Center-align text */
+    text-align: center;
+    /* Center-align text */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
@@ -134,16 +141,18 @@
 }
 
 .contentSection {
+    position: relative;
+    z-index: 20;
+    /* Maior que o z-index do Crossfade (que é 10) */
+    background-color: #003366;
+    /* Essencial para "apagar" a imagem fixa anterior */
+    padding: 6rem 2rem;
+    /* Espaço para respirar */
     display: flex;
     flex-direction: column;
     gap: 6rem;
-    /* Increased gap for better separation */
-    padding: 4rem 2rem;
     max-width: 1000px;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    /* Above the overlay */
 }
 
 .row {
@@ -201,7 +210,7 @@
     position: absolute;
     right: 0.6rem;
     bottom: 0.6rem;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     color: #fff;
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
@@ -230,9 +239,10 @@
     display: flex;
     justify-content: center;
     padding: 4rem 0;
-    margin-top: 2rem;
+    margin-top: 0;
     position: relative;
-    z-index: 10;
+    z-index: 20;
+    background-color: #003366;
 }
 
 .navButton {
@@ -272,59 +282,63 @@
 .stickySection {
     position: relative;
     width: 100%;
-    height: 350vh;
-    /* Increased height for better spacing */
+    height: 100vh;
+    /* Fixed viewport height for pinning */
+    overflow: hidden;
+    z-index: 5;
+    /* Ensure it stays in its own layer */
 }
 
 .stickyImageContainer {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.stickyImage {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+}
+
+.stickyImage {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-    /* Hidden by default */
     filter: brightness(0.6);
     /* Dim for text readability */
 }
 
-.stickyImage.active {
-    opacity: 1;
-}
-
 .scrollingTexts {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 350vh;
+    height: 100%;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass through if needed */
 }
 
 .textBlock {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 600px;
-    margin: 0 auto;
+    position: absolute;
+    /* Stack on top of each other */
+    background: rgba(0, 0, 0, 0.75);
+    padding: 2.5rem;
+    border-radius: 16px;
+    max-width: 650px;
     text-align: center;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    /* Hidden by default, controlled by GSAP */
+    transform: translateY(20px);
+    /* Start slightly down */
 }
 
 .textBlock h3 {
     color: #ffcc00;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
 }
 
 /* Caption for sticky image (bottom-right, over the stacked sticky images) */

@@ -45,6 +45,8 @@ const ImageCrossfade = ({
                 pinSpacing: true,
                 scrub: 1,
                 markers: false,
+                anticipatePin: 1,
+                fastScrollEnd: true,
             }
         });
 
@@ -92,6 +94,9 @@ const ImageCrossfade = ({
                 duration: 0.5,
                 ease: 'power2.out'
             }, "-=0.3");
+
+        // Pausa no final para leitura
+        tl.to({}, { duration: 1 });
 
         // Cleanup
         return () => {
