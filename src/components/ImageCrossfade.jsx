@@ -12,7 +12,6 @@ const ImageCrossfade = ({
     altPhoto = "Foto real",
     labelStart = "Desenho",
     labelEnd = "Realidade",
-    className = `${styles.imageBox}`
 }) => {
     const sectionRef = useRef(null);
     const containerRef = useRef(null);

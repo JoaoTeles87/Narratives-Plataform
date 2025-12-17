@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import ImageCrossfade from './ImageCrossfade';
+import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './IburaNarrative.module.css';
+import ImageCrossfade from './ImageCrossfade.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +14,7 @@ const useScrollReveal = () => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add(styles.visible);
                     } else {
-                        entry.target.classList.remove(styles.visible);
+                        entry.target.classList.remove(styles.visible); // Reversible transition
                     }
                 });
             },
@@ -29,42 +29,25 @@ const useScrollReveal = () => {
 };
 
 const IburaNarrative = ({ onBack, onNavigate }) => {
+    const [showAnimation, setShowAnimation] = useState(true);
+    const [stickyStage, setStickyStage] = useState(0);
     const headerRef = useRef(null);
     const overlayRef = useRef(null);
     const stickyRef = useRef(null);
-
-    // ✅ SOLUÇÃO 1: useRef em vez de useState (evita re-renders)
-    const stickyStageRef = useRef(0);
-    const tickingRef = useRef(false);
     const titleRef = useRef(null);
 
     useScrollReveal();
 
-    // ✅ Função para atualizar imagens diretamente (sem setState)
-    const updateStickyImages = useCallback((stage) => {
-        if (!stickyRef.current) return;
-
-        const images = stickyRef.current.querySelectorAll(`.${styles.stickyImage}`);
-        if (images.length < 4) return;
-
-        // Reset all
-        images.forEach(img => {
-            img.style.opacity = '0';
-        });
-
-        // Ativa conforme o stage
-        if (stage >= 0) images[0].style.opacity = '1';
-        if (stage >= 1) images[1].style.opacity = '1';
-        if (stage >= 1.5 && stage < 2) images[2].style.opacity = '1';
-        if (stage >= 2) {
-            images[2].style.opacity = '0';
-            images[3].style.opacity = '1';
-        }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowAnimation(false);
+        }, 3000);
+        return () => clearTimeout(timer);
     }, []);
 
-    // ✅ Lógica de scroll separada
-    const handleScrollLogic = useCallback(() => {
-        const scrollY = window.scrollY;
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
 
             // Header Effects
             if (headerRef.current && overlayRef.current) {
@@ -80,63 +63,73 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                 // headerRef.current.style.transformOrigin = 'center top';
             }
 
-        // Sticky Section Logic (SEM setState!)
-        if (stickyRef.current) {
-            const rect = stickyRef.current.getBoundingClientRect();
-            const sectionHeight = rect.height;
-            const windowHeight = window.innerHeight;
+            // Sticky Section Logic
+            if (stickyRef.current) {
+                const rect = stickyRef.current.getBoundingClientRect();
+                const sectionHeight = rect.height;
+                const windowHeight = window.innerHeight;
 
-            let newStage = stickyStageRef.current;
+                if (rect.top <= 0 && rect.bottom >= windowHeight) {
+                    const scrolled = Math.abs(rect.top);
+                    const totalScrollable = sectionHeight - windowHeight;
+                    const progress = scrolled / totalScrollable;
 
-            if (rect.top <= 0 && rect.bottom >= windowHeight) {
-                const scrolled = Math.abs(rect.top);
-                const totalScrollable = sectionHeight - windowHeight;
-                const progress = scrolled / totalScrollable;
+                    // Define stages based on scroll progress
+                    // Adjusted thresholds to align with text blocks:
+                    // Block 1 (Map) is at ~15-20%
+                    // Block 2 (Risks/Arrows) is at ~50%
+                    // Block 3 (Tragedy/Photo) is at ~80%
 
-                newStage =
-                    progress < 0.30 ? 0 :
-                        progress < 0.40 ? 1 :
-                            progress < 0.65 ? 1.5 : 2;
-
-            } else if (rect.top > 0) {
-                newStage = 0;
-            } else if (rect.bottom < windowHeight) {
-                newStage = 2;
-            }
-
-            // ✅ Só atualiza se mudou (evita trabalho desnecessário)
-            if (stickyStageRef.current !== newStage) {
-                stickyStageRef.current = newStage;
-                updateStickyImages(newStage);
-            }
-        }
-    }, [updateStickyImages]);
-
-    useEffect(() => {
-        // ✅ SOLUÇÃO 2: Throttle com requestAnimationFrame
-        const handleScroll = () => {
-            if (!tickingRef.current) {
-                window.requestAnimationFrame(() => {
-                    handleScrollLogic();
-                    tickingRef.current = false;
-                });
-                tickingRef.current = true;
+                    if (progress < 0.30) {
+                        setStickyStage(0); // Map
+                    } else if (progress < 0.40) {
+                        setStickyStage(1); // Illustration ON, Arrows OFF
+                    } else if (progress < 0.65) {
+                        setStickyStage(1.5); // Illustration ON, Arrows ON
+                    } else {
+                        setStickyStage(2); // Photo ON
+                    }
+                } else if (rect.top > 0) {
+                    setStickyStage(0);
+                } else if (rect.bottom < windowHeight) {
+                    setStickyStage(2);
+                }
             }
         };
 
-        // ✅ SOLUÇÃO 5: Listener passivo
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        // Inicializa as imagens
-        updateStickyImages(0);
-
+        window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
+    useEffect(() => {
+        // Parallax effect for the header background
+        gsap.to(headerRef.current, {
+            backgroundPositionY: '120%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
+
+        // Title movement effect
+        gsap.to(titleRef.current, {
+            y: 500, // Move the title down by 100px
+            ease: 'none',
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
     }, []);
 
     return (
         <div className={styles.container}>
-            {showAnimationRef.current && (
+            {showAnimation && (
                 <div className={styles.introAnimationElement}>
                     <span>▼</span>
                 </div>
@@ -155,12 +148,12 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
 
                 <div ref={titleRef}>
                     <p className={styles.subtitle}>ZEIS de morro</p>
-                    <h1  className={styles.title}>IBURA</h1>
+                    <h1 className={styles.title}>IBURA</h1>
                 </div>
             </header>
 
             <div className={styles.contentSection}>
-                {/* Section 1 */}
+                {/* Section 1: History & Airport */}
                 <div className={styles.row}>
                     <div className={`${styles.textBox} ${styles.reveal}`}>
                         <p>
@@ -178,7 +171,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     </div>
                 </div>
 
-                {/* Section 2 */}
+                {/* Section 2: Population & Origins */}
                 <div className={`${styles.row} ${styles.reverse}`}>
                     <div className={`${styles.textBox} ${styles.reveal}`}>
                         <p>
@@ -193,57 +186,55 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     </div>
                 </div>
 
-                {/* Sticky Section */}
+                {/* Sticky Section: Map -> Illustration -> Arrows -> Photo */}
                 <div ref={stickyRef} className={styles.stickySection}>
                     <div className={styles.stickyImageContainer}>
+                        {/* Layer 1: Map (Base) - Stage 0 */}
                         <img
                             src="/ibura (3).png"
                             alt="Mapa do Ibura"
                             className={`${styles.stickyImage} ${styles.active}`}
-                            style={{ opacity: 1 }}
                         />
+
+                        {/* Layer 2: Illustration (Overlay) - Stage 1+ */}
                         <img
                             src="/ibura (4).png"
                             alt="Ilustração de Risco"
                             className={styles.stickyImage}
-                            style={{ opacity: 0 }}
+                            style={{ opacity: stickyStage >= 1 ? 1 : 0 }}
                         />
+
+                        {/* Layer 2.5: Arrows (Overlay) - Stage 1.5 only */}
                         <img
                             src="/ibura (6).png"
                             alt="Setas de Deslizamento"
                             className={styles.stickyImage}
-                            style={{ opacity: 0 }}
+                            style={{ opacity: (stickyStage >= 1.5 && stickyStage < 2) ? 1 : 0 }}
                         />
+
+                        {/* Layer 3: Real Photo (Overlay) - Stage 2+ */}
                         <img
                             src="/ibura (5).png"
                             alt="Foto Jardim Monte Verde"
                             className={styles.stickyImage}
-                            style={{ opacity: 0 }}
+                            style={{ opacity: stickyStage >= 2 ? 1 : 0 }}
                         />
                         <div className={styles.stickyImageCaption}>Campo de pouso no Ibura, Zona Sul do Recife. (Fonte: Jornal Digital Recife).</div>
                     </div>
 
                     <div className={styles.scrollingTexts}>
+                        {/* Stage 0 Text */}
                         <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '20vh' }}>
                             <h3>Divisão e Comunidades</h3>
                             <p>
                                 O bairro do Ibura é dividido em duas partes: Ibura de Cima (a oeste) e Ibura de Baixo (a leste). A divisão se dá pela diferença de relevo marcada por uma barreira muito íngreme.
                             </p>
                             <p>
-                                Somando um total de 21 comunidades, as UR's (Unidades Residenciais) representam a maior parte do bairro, localizadas no Ibura de Cima.
+                                Somando um total de 21 comunidades, as UR’s (Unidades Residenciais) representam a maior parte do bairro, localizadas no Ibura de Cima.
                             </p>
                         </div>
 
-                        {/* Crossfade Section */}
-                        <ImageCrossfade
-                            drawingImage="/ibura (6).png"
-                            photoImage="/ibura (8).png"
-                            altDrawing="Ilustração do deslizamento de terra no Ibura"
-                            altPhoto="Foto real do deslizamento de terra no Ibura"
-                            labelStart="Desenho"
-                            labelEnd="Realidade"
-                        />
-
+                        {/* Stage 1/1.5 Text */}
                         <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
                             <h3>Riscos e Desafios</h3>
                             <p>
@@ -254,6 +245,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                             </p>
                         </div>
 
+                        {/* Stage 2 Text */}
                         <div className={`${styles.textBlock} ${styles.reveal}`} style={{ marginTop: '70vh' }}>
                             <h3>A Tragédia de 2022</h3>
                             <p>
@@ -266,7 +258,17 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                     </div>
                 </div>
 
-                {/* Section Final */}
+                {/* ===== CROSSFADE: DESENHO PARA REALIDADE (FORA da stickySection) ===== */}
+                <ImageCrossfade
+                    drawingImage="/ibura (6).png"
+                    photoImage="/ibura (8).png"
+                    altDrawing="Ilustração do deslizamento de terra no Ibura"
+                    altPhoto="Foto real do deslizamento de terra no Ibura"
+                    labelStart="Desenho"
+                    labelEnd="Realidade"
+                />
+
+                {/* Section 8: Current Situation */}
                 <div className={`${styles.row} ${styles.reverse}`}>
                     <div className={`${styles.textBox} ${styles.reveal}`}>
                         <p>
@@ -279,6 +281,7 @@ const IburaNarrative = ({ onBack, onNavigate }) => {
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div className={styles.footerNavigation}>
