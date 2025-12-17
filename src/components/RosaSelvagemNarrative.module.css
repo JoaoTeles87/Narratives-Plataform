@@ -131,9 +131,6 @@
 .contentSection {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
-    padding: 4rem 2rem;
-    max-width: 1000px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
@@ -143,10 +140,26 @@
     display: flex;
     align-items: center;
     gap: 3rem;
+    min-height: 100vh;
+    padding: 4rem 2rem;
 }
 
 .row.reverse {
     flex-direction: row-reverse;
+    background: #8DC8DA;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+}
+
+/* Dimensões específicas para imagem da sessão 2 */
+.row.reverse .imageBox {
+    flex: 0 0 auto;
+}
+
+.row.reverse .imageBox img {
+    width: 836px;
+    height: 639px;
+    object-fit: cover;
 }
 
 .column {
@@ -176,8 +189,13 @@
 }
 
 .textBox p {
-    font-size: 1.2rem;
-    line-height: 1.8;
+    font-family: 'BespokeSerif-Regular', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: justify;
+    color: #00315A;
     margin-bottom: 1rem;
 }
 
@@ -234,11 +252,96 @@
     pointer-events: none;
 }
 
+/* Section with background image */
+.sectionWithBackground {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    overflow: hidden;
+    padding: 4rem 2rem;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        url('/rosa-selvagem_2.png') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+.textBoxOverlay {
+    position: relative;
+    z-index: 2;
+    background: rgba(141, 200, 218, 0.8);
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 1059px;
+}
+
+.textBoxOverlay p {
+    font-family: 'BespokeSerif-Regular', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: justify;
+    color: #00315A;
+    margin-bottom: 1rem;
+}
+
+.textBoxOverlay p:last-child {
+    margin-bottom: 0;
+}
+
+/* Section 3 with background image */
+.sectionWithBackgroundThree {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    overflow: hidden;
+    padding: 4rem 2rem;
+}
+
+.backgroundImageThree {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        url('/rosa_selvagem_5.png') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+/* Subclasse para textBoxOverlay com largura menor */
+.textBoxSmall {
+    max-width: 847px;
+}
+
+.textBoxBig {
+    max-width: 1096px;
+}
+
 @media (max-width: 768px) {
 
     .row,
     .row.reverse {
         flex-direction: column;
+        min-height: auto;
+        padding: 2rem 1rem;
     }
 
     .doubleImageRow {
@@ -247,6 +350,42 @@
 
     .title {
         font-size: 3rem;
+    }
+
+    .sectionWithBackground {
+        min-height: 400px;
+        padding: 2rem 1rem;
+        gap: 40px;
+    }
+
+    .sectionWithBackgroundThree {
+        min-height: 400px;
+        padding: 2rem 1rem;
+        gap: 40px;
+    }
+
+    .textBoxOverlay {
+        padding: 1.5rem;
+    }
+
+    .row .textBoxOverlay {
+        padding: 1.5rem 0;
+    }
+
+    .textBoxOverlay p {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    .textBox p {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    /* Imagem responsiva em mobile */
+    .row.reverse .imageBox img {
+        width: 100%;
+        height: auto;
     }
 }
 /* Footer Navigation */

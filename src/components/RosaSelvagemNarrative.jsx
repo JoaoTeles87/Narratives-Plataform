@@ -87,52 +87,60 @@ const RosaSelvagemNarrative = ({ onBack, onNavigate }) => {
 
             <div className={styles.contentSection}>
                 {/* Section 1: Location & Growth */}
-                <div className={styles.row}>
-                    <div className={styles.textBox}>
+                <div className={styles.sectionWithBackground}>
+                    <div className={styles.backgroundImage}></div>
+                    <div className={styles.textBoxOverlay}>
                         <p>
                             Localizada dentro do bairro da Várzea, a comunidade Rosa Selvagem foi fruto de ocupações espontâneas que ganharam forma ao longo do século XX, acompanhando o crescimento populacional e a migração de famílias de baixa renda que buscavam alternativas de moradia próximas às oportunidades de estudo e trabalho da Zona Oeste.
                         </p>
+                    </div>
+                    <div className={styles.textBoxOverlay}>
                         <p>
                             Instalada em uma área de encosta com forte inclinação, Rosa Selvagem cresceu de maneira desordenada, com moradias distribuídas ao longo dos aclives e pequenas vias que funcionam como o único elo entre o alto e a parte plana da Várzea.
                         </p>
                     </div>
-                    <div className={styles.imageBox}>
-                        <div className={styles.imageWrapper}>
-                            <img src="/rosa-selvagem_2.png" alt="Vista da comunidade Rosa Selvagem" />
-                            <div className={styles.imageOverlayCaption}>Vista aérea da ZEIS Rosa Selvagem, 2024. (Fonte: Sennor Ramos)</div>
-                        </div>
-                    </div>
+                    <div className={styles.imageOverlayCaption}>Vista aérea da ZEIS Rosa Selvagem, 2024. (Fonte: Sennor Ramos)</div>
                 </div>
 
                 {/* Section 2: Improvements */}
                 <div className={`${styles.row} ${styles.reverse}`}>
-                    <div className={styles.textBox}>
-                        <p>
-                            Além das obras estruturais, o programa implementou melhorias no espaço urbano que incluíram requalificação de escadarias, criação de áreas de convivência, pintura de fachadas e mobilização comunitária.
-                        </p>
-                    </div>
-                    <div className={styles.imageBox}>
+                <div className={styles.imageBox}>
                         <div className={styles.imageWrapper}>
-                            <img src="/rosa_selvagem_3.png" alt="Melhorias urbanas em Rosa Selvagem" />
+                            <img src="/rosa_selvagem_4.png" alt="Melhorias urbanas em Rosa Selvagem" />
                             <div className={styles.imageOverlayCaption}>Urbanização de encosta na Rua Pelopidas Arroxelas,
  localizada na ZEIS Rosa Selvagem, 2024. (Fonte: URB - Recife)</div>
                         </div>
                     </div>
+                    <div className={styles.textBoxOverlay}>
+                        <p>
+                            Essa ocupação em terreno naturalmente frágil fez com que o risco de deslizamentos se tornasse uma preocupação constante.
+                        </p>
+
+                        <p>
+                            Foi nesse contexto que, em 2021, a comunidade se tornou a 55ª beneficiada pelo programa Mais Vida nos Morros.
+                        </p>
+
+                        <p>
+                            Recebendo naquele ano a maior obra de contenção de encostas da década, realizada na rua João Carneiro da Cunha, a comunidade Rosa Selvagem passou por uma profunda transformação.
+                        </p>
+                    </div>
+                    
                 </div>
 
                 {/* Section 3: Resistance & Identity */}
-                <div className={styles.row}>
-                    <div className={styles.textBox}>
+                <div className={styles.sectionWithBackgroundThree}>
+                    <div className={styles.backgroundImageThree}></div>
+                    <div className={`${styles.textBoxOverlay} ${styles.textBoxSmall}`}>
                         <p>
-                            Embora tenha um registro histórico mais escasso, Rosa Selvagem traduz a realidade de boa parte dos territórios populares da cidade: comunidades que se fortaleceram a partir da própria resistência de seus habitantes e que, mesmo diante da negligência do Estado, construíram laços, identidades e modos de vida que fazem parte do tecido urbano do Recife.
-                        </p>
+                            Além das obras estruturais, o programa implementou melhorias no espaço urbano que incluíram requalificação de escadarias, criação de áreas de convivência, pintura de fachadas e mobilização comunitária.
+                        </p>    
                     </div>
-                    <div className={styles.imageBox}>
-                        <div className={styles.imageWrapper}>
-                            <img src="/rosa_selvagem_4.png" alt="Obra de contenção na comunidade Rosa Selvagem" />
-                            <div className={styles.imageOverlayCaption}>Obra de contenção na comunidade Rosa Selvagem. (Foto: Andréa Rêgo Barros/PCR)</div>
-                        </div>
+                    <div className={`${styles.textBoxOverlay} ${styles.textBoxBig}`}>
+                        <p>
+                                Embora tenha um registro histórico mais escasso, Rosa Selvagem traduz a realidade de boa parte dos territórios populares da cidade: comunidades que se fortaleceram a partir da própria resistência de seus habitantes e que, mesmo diante da negligência do Estado, construíram laços, identidades e modos de vida que fazem parte do tecido urbano do Recife.
+                            </p>
                     </div>
+                    <div className={styles.imageOverlayCaption}>Obra de contenção na comunidade Rosa Selvagem. (Foto: Andréa Rêgo Barros/PCR)</div>
                 </div>
 
             </div>
